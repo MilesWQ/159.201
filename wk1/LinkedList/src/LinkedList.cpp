@@ -11,7 +11,7 @@ LinkedList::~LinkedList()
 }
 
 //Add a new node at the head of a linked-list.Creat a node if there's no node in the list.
-void LinkedList::addNodeH(const int &id,const double &balance)
+void LinkedList::addNode(int id,double balance)
 {
     Node *temporaryNewNode = new Node(id,balance);
     temporaryNewNode->next = listPointer;
@@ -19,7 +19,7 @@ void LinkedList::addNodeH(const int &id,const double &balance)
 }
 
 //Add a new node at the tail of current list.Creat a node if there's no node in the list.
-void LinkedList::addNodeT(const int &id,const double &balance)
+void LinkedList::addNodeTail(int id,double balance)
 {
     Node *currentNode = listPointer;
     Node *temporaryNewNode = new Node(id,balance);
@@ -48,7 +48,7 @@ void LinkedList::print()
     cout<<"End of the list"<<endl;
 }
 //Return true if the node containing the id was found otherwise return false.
-bool LinkedList::isIdInList(const int &id)
+bool LinkedList::isIdInList(int id)
 {
     Node *currentNode = listPointer;
     while(currentNode!=0 && currentNode->id != id)
@@ -66,7 +66,7 @@ bool LinkedList::isIdInList(const int &id)
 }
 
 //Return true if find the node and delete it successfully otherwise return false. O(N)
-bool LinkedList::removeNodeById(const int &id)
+bool LinkedList::removeNodeById(int id)
 {
     Node *previousOfToBeRemoved = NULL;
     Node *toBeRemoved = listPointer;
@@ -99,7 +99,7 @@ bool LinkedList::removeNodeById(const int &id)
 /*Concatenate another linklist to the end of calling list.
 * Parameter: a linklist that will be joined.
 */
-void LinkedList::concatenate(LinkedList *const &linklist2)
+void LinkedList::concatenate(LinkedList *const linklist2)
 {
     if(linklist2->listPointer!=0)
     {
@@ -117,5 +117,64 @@ void LinkedList::concatenate(LinkedList *const &linklist2)
         {
             listPointer = linklist2->listPointer;
         }
+    }
+}
+
+void LinkedList::reverse1()
+{
+    if(listPointer!=0)
+    {
+        LinkedList *temporaryList = new LinkedList();
+        Node *currentNode = listPointer;
+        while(currentNode!=0)
+        {
+            temporaryList->addNode(currentNode->id,currentNode->balance);
+            currentNode = currentNode->next;
+        }
+        delete listPointer;
+        listPointer = temporaryList->listPointer;
+    }
+}
+
+void LinkedList::reverse2()
+{
+    if(listPointer!=0)
+    {
+        Node *oldListPointer = listPointer;
+        Node *previousNode = listPointer;
+        Node *NextNode = listPointer->next;
+        while(NextNode !=0)
+        {
+            listPointer = NextNode;
+            NextNode = listPointer->next;
+            listPointer->next = previousNode;
+            previousNode = listPointer;
+        }
+        oldListPointer->next = 0;
+    }
+}
+
+bool LinkedList::split(LinkedList *&newlist,int id)
+{
+    if(newlist->listPointer!=0)
+    {
+        cout<<"The new list has already got nodes."<<endl;
+        return false;
+    }
+    Node *current = listPointer;
+    while(current!=0 && current->id != id)
+    {
+        current = current->next;
+    }
+    if(current!=0)
+    {
+        newlist->listPointer = current->next;
+        current->next = 0;
+        return true;
+    }
+    else
+    {
+        cout<<"id not found"<<endl;
+        return false;
     }
 }
