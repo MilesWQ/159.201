@@ -48,14 +48,17 @@ void Stack::pop()
 
 float Stack::top()
 {
+
     if(my_iIndex>-1)
     {
         return my_aData[my_iIndex];
     }
 }
 
-bool Stack::isEmpty(){
-    if(my_iIndex < 0){
+bool Stack::isEmpty()
+{
+    if(my_iIndex < 0)
+    {
         return true;
     }
     return false;
@@ -64,8 +67,9 @@ bool Stack::isEmpty(){
 int main()
 {
     Stack s;
-    cout<<s.isEmpty()<<endl;
     s.push(1.11);
-    cout<<s.isEmpty();
+    s.push(2.22);
+    s.push(3.33);
+    cout<<s.top()<<endl;
     return 0;
 }
