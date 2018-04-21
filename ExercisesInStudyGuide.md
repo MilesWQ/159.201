@@ -252,7 +252,8 @@ public:
     /*  insert a single node with a given data after a certain key
     * @param search_key the key to be found.
     * @param data the data to be inserted to the list.
-    * @return true if the node storing the key was found and a new node was inserted after the found node successfully otherwise false.
+    * @return true if the node storing the key was found and a 
+    *     new node was inserted after the found node successfully otherwise false.
     */
     bool Insert(int search_key, int data);
     friend ostream& operator<<(ostream& out, const CircularLinkList &linklist);
